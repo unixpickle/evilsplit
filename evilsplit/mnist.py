@@ -40,6 +40,12 @@ def train_and_test(train_indices, test_indices, architecture=fully_connected_cla
             _train(sess, input_ph, logits, *_get_data(train_indices))
             return _test(sess, input_ph, logits, *_get_data(test_indices))
 
+def sample_images(indices):
+    """
+    Get the images for the sample indices.
+    """
+    return _get_data(indices)[0]
+
 def _train(sess, input_ph, logits, training_ins, training_outs):
     """
     Train the classifier.
