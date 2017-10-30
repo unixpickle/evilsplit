@@ -5,8 +5,6 @@ to be used as the test set.
 Measure accuracy on the results.
 """
 
-from collections import Counter
-
 import matplotlib.pyplot
 import numpy as np
 
