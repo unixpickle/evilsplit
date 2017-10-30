@@ -40,6 +40,14 @@ def train_and_test(train_indices, test_indices, architecture=fully_connected_cla
             _train(sess, input_ph, logits, *_get_data(train_indices))
             return _test(sess, input_ph, logits, *_get_data(test_indices))
 
+def sample_classes(indices):
+    """
+    Get the classes for the sample indices.
+
+    Each class is an integer.
+    """
+    return np.argmax(_get_data(indices)[1], axis=-1)
+
 def sample_images(indices):
     """
     Get the images for the sample indices.

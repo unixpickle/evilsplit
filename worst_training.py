@@ -5,10 +5,12 @@ to be used as the test set.
 Measure accuracy on the results.
 """
 
+from collections import Counter
+
 import matplotlib.pyplot
 import numpy as np
 
-from evilsplit import train_and_test, sample_images
+from evilsplit import train_and_test, sample_classes, sample_images
 
 NUM_SAMPLES = 65000
 
@@ -21,6 +23,8 @@ def main():
     best_to_worst = np.array(next(zip(*sorted(enumerate(all_losses), key=lambda x: x[1]))))
     train_indices = best_to_worst[:-10000]
     test_indices = best_to_worst[-10000:]
+
+    print('Test balance:' + str(Counter(sample_classes(test_indices))))
 
     print('Training on adversarial split.')
     corrects, _ = train_and_test(train_indices, test_indices)
