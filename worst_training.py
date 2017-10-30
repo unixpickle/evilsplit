@@ -10,7 +10,7 @@ import numpy as np
 
 from evilsplit import train_and_test, sample_classes, sample_images
 
-NUM_SAMPLES = 65000
+NUM_SAMPLES = 70000
 
 def main():
     """

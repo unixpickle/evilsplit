@@ -102,6 +102,8 @@ def _get_data(indices):
     global _MNIST_LABELS
     if _MNIST_LABELS is None:
         data = input_data.read_data_sets('MNIST_data', one_hot=True)
-        _MNIST_LABELS = np.array(list(data.train.labels) + list(data.test.labels))
-        _MNIST_IMAGES = np.array(list(data.train.images) + list(data.test.images))
+        _MNIST_LABELS = np.array(list(data.train.labels) + list(data.validation.labels) +
+                                 list(data.test.labels))
+        _MNIST_IMAGES = np.array(list(data.train.images) + list(data.validation.images) +
+                                 list(data.test.images))
     return _MNIST_IMAGES[indices], _MNIST_LABELS[indices]
