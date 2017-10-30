@@ -8,7 +8,8 @@ Measure accuracy on the results.
 import matplotlib.pyplot
 import numpy as np
 
-from evilsplit import train_and_test, sample_classes, sample_images
+from evilsplit.mnist import sample_classes, sample_images
+from evilsplit.train import train_and_test
 
 NUM_SAMPLES = 70000
 
