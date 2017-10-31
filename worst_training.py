@@ -8,7 +8,8 @@ Measure accuracy on the results.
 import matplotlib.pyplot
 import numpy as np
 
-from evilsplit.mnist import sample_classes, sample_images
+from evilsplit.adversarial import min_accuracy_split
+from evilsplit.mnist import sample_images
 from evilsplit.models import conv_classifier
 from evilsplit.train import train_and_test
 
@@ -18,10 +19,8 @@ def main():
     """
     Program entry-point.
     """
-    print('Training on all data...')
-    _, all_losses = train_and_test(np.arange(NUM_SAMPLES), np.arange(NUM_SAMPLES))
-    best_to_worst = np.array(next(zip(*sorted(enumerate(all_losses), key=lambda x: x[1]))))
-    train_indices, test_indices = even_adversarial_split(best_to_worst)
+    print('Creating minimum-accuracy split...')
+    train_indices, test_indices = min_accuracy_split()
 
     print('Training on adversarial split.')
     corrects, _ = train_and_test(train_indices, test_indices, architecture=conv_classifier)
@@ -45,21 +44,6 @@ def show_image_grid(images, figure=1):
             big_image[row*28 : (row+1)*28, col*28 : (col+1)*28] = images[row*4 + col]
     matplotlib.pyplot.figure(figure)
     matplotlib.pyplot.imshow(big_image)
-
-def even_adversarial_split(best_to_worst):
-    """
-    Select the 1000 worst samples from each class and turn
-    that into the test set.
-
-    Returns (train, test).
-    """
-    labels = sample_classes(best_to_worst)
-    train, test = [], []
-    for label in range(10):
-        samples = best_to_worst[labels == label]
-        train.extend(samples[:-1000])
-        test.extend(samples[-1000:])
-    return train, test
 
 if __name__ == '__main__':
     main()
