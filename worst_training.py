@@ -9,6 +9,7 @@ import matplotlib.pyplot
 import numpy as np
 
 from evilsplit.mnist import sample_classes, sample_images
+from evilsplit.models import conv_classifier
 from evilsplit.train import train_and_test
 
 NUM_SAMPLES = 70000
@@ -23,7 +24,7 @@ def main():
     train_indices, test_indices = even_adversarial_split(best_to_worst)
 
     print('Training on adversarial split.')
-    corrects, _ = train_and_test(train_indices, test_indices)
+    corrects, _ = train_and_test(train_indices, test_indices, architecture=conv_classifier)
     print('Mean accuracy: ' + str(np.mean(np.array(corrects).astype('float32'))))
 
     print('Plotting some samples.')
