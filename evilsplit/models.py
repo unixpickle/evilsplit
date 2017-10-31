@@ -21,9 +21,9 @@ def conv_classifier(input_ph):
     """
     shaped_in = tf.reshape(input_ph, [-1, 28, 28, 1])
     with tf.variable_scope('conv_1'):
-        out_1 = tf.layers.conv2d(shaped_in, 64, 5, strides=[2, 2])
+        out_1 = tf.layers.conv2d(shaped_in, 64, 5, strides=[2, 2], activation=tf.nn.relu)
     with tf.variable_scope('conv_2'):
-        out_2 = tf.layers.conv2d(out_1, 64, 5)
+        out_2 = tf.layers.conv2d(out_1, 64, 5, activation=tf.nn.relu)
     out_size = 1
     for dim in out_2.get_shape()[1:]:
         out_size *= int(dim)
